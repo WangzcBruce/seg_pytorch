@@ -180,26 +180,26 @@ def main():
     print('Making directories...')
     mkdir_or_exist(osp.join(out_dir, 'img_dir', 'train'))
     mkdir_or_exist(osp.join(out_dir, 'img_dir', 'val'))
-    # mkdir_or_exist(osp.join(out_dir, 'img_dir', 'test'))
+    mkdir_or_exist(osp.join(out_dir, 'img_dir', 'test'))
 
     mkdir_or_exist(osp.join(out_dir, 'ann_dir', 'train'))
     mkdir_or_exist(osp.join(out_dir, 'ann_dir', 'val'))
-    # mkdir_or_exist(osp.join(out_dir, 'ann_dir', 'test'))
+    mkdir_or_exist(osp.join(out_dir, 'ann_dir', 'test'))
 
     assert os.path.exists(os.path.join(dataset_path, 'train')), \
         'train is not in {}'.format(dataset_path)
     assert os.path.exists(os.path.join(dataset_path, 'val')), \
         'val is not in {}'.format(dataset_path)
-    # assert os.path.exists(os.path.join(dataset_path, 'test')), \
-    #     'test is not in {}'.format(dataset_path)
+    assert os.path.exists(os.path.join(dataset_path, 'test')), \
+        'test is not in {}'.format(dataset_path)
 
     with tempfile.TemporaryDirectory(dir=args.tmp_dir) as tmp_dir:
-        for dataset_mode in ['train', 'val']:
+        for dataset_mode in ['train', 'val', 'test']:
 
             # for dataset_mode in [ 'test']:
             print('Extracting  {}ing.zip...'.format(dataset_mode))
             img_zipp_list = glob.glob(
-                os.path.join(dataset_path, dataset_mode, 'Semantic_masks', '*.zip'))
+                os.path.join(dataset_path, dataset_mode, 'images', '*.zip'))
             print('Find the data', img_zipp_list)
             for img_zipp in img_zipp_list:
                 zip_file = zipfile.ZipFile(img_zipp)
